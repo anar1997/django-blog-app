@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+{% block body %}
+<h3>kontrol paneli</h3>
+<hr>
+<p>
+    xos gelmisiniz, <small>{{request.user.username}}</small>
+</p>
+<hr>
+<a class = "btn btn-danger" href = "/articles/addarticle">Meqale elave et </a>
+<hr>
+{% if articles %}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">Basliq</th>
+      <th scope="col">Yazar</th>
+      <th scope="col">Tarix</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for article in articles %}
+    <tr>
+        <th scope="row">{{article.id}}</th>
+        <td> <a href="/articles/article/{{article.id}}">{{article.title}}</a></td>
+        <td>{{article.author.username}}</td>
+        <td>{{article.created_date}}</td>
+        <td> <a href="/articles/update/{{article.id}}" class="btn btn-danger">Guncelle</a></td>
+        <td> <a href="/articles/delete/{{article.id}}" class="btn btn-danger">Sil</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% else %}
+<div class="alert alert-danger">
+    hec bir meqale yoxdur...
+</div>
+{% endif %}
+
+
+{% endblock body %}
